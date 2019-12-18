@@ -73,6 +73,7 @@ export default {
     },
 
     methods: {
+        
         addRule() {
             alert('Add Rule works')
         },
@@ -82,7 +83,7 @@ export default {
         },
 
         deleteRule(rule){
-            console.log(rule);
+            confirm('Are you sure you want to delete this rule?') && this.$emit('delete',rule)
         }
     }
 }
