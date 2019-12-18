@@ -5,10 +5,14 @@
         cols="10"
         md="8"
         >
-        <stock title="Stock of fruits">         
-          <fruits_list/>
-          <p class="caption grey--text">Made by Yoe on December 2019</p>          
-        </stock>
+
+            <secure_table
+            v-for="(table,index) in tables"
+            :key="index"            
+            :table_name="table"
+            :table_rules="table_rules(table)"
+            ></secure_table>
+
       </v-col>
     </v-row>
   </v-container>
@@ -16,14 +20,32 @@
 
 <script>
 // @ is an alias to /src
-import stock from '@/components/stock.vue'
-import fruits_list from "@/components/fruits_list.vue"
+import secure_table from '@/components/secure_table.vue'
 
 export default {
   name: 'home',
-  components: {
-    stock,    
-    fruits_list
+  components: {   
+    secure_table
+  },
+
+  data(){
+    return{
+      tables:'',
+      rules:[]
+    }
+  },
+
+  methods:{
+    table_rules(table_name){
+      return this.rules.filter(table => table.table_name == table_name)
+    }
+  },
+
+  created(){
+    this.tables = this.$mokeServices.getTables();
+    this.rules = this.$mokeServices.getDefinitions();    
+    console.log(Object.keys(this.rules[0]));    
   }
+
 }
 </script>
