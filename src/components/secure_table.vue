@@ -43,6 +43,17 @@
                   </v-icon>
                 </template>
 
+                <template v-slot:item.locked="{ item }">
+                    <v-icon
+                    
+                    small
+                    :class="['mdi', item.locked? 'mdi-lock':'mdi-lock-open-variant']"                    
+                    :color="item.locked? 'error':'success'"
+                    @click="toggleRuleLock(item)"
+                    >                    
+                    </v-icon>
+                </template>
+
                 <template v-slot:no-data>
                   <v-btn color="primary">Reset</v-btn>
                 </template>
@@ -78,12 +89,16 @@ export default {
             alert('Add Rule works')
         },
 
-        editRule(rule){
+        editRule(rule) {
             console.log(rule);
         },
 
-        deleteRule(rule){
-            confirm('Are you sure you want to delete this rule?') && this.$emit('delete',rule)
+        deleteRule(rule) {
+            confirm('Are you sure you want to delete this rule?') && this.$emit('delete', rule)
+        },
+
+        toggleRuleLock(rule){
+            this.$emit('toggle-rule-lock', rule)
         }
     }
 }

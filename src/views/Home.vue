@@ -11,7 +11,8 @@
             :key="index"            
             :table_name="table"
             :table_rules="table_rules(table)"
-            @delete="deleteRule"            
+            @delete="deleteRule"
+            @toggle-rule-lock="toggleRuleLock"    
             ></secure_table>
 
       </v-col>
@@ -37,23 +38,29 @@ export default {
   },
 
   methods:{
-    initialize(){
+    initialize() {
       this.tables = this.$mokeServices.getTables();
       this.rules = this.$mokeServices.getDefinitions()   
     },
 
-    table_rules(table_name){
+    table_rules(table_name) {
       return this.rules.filter(table => table.table_name == table_name)
     },
 
-    deleteRule(rule){
+    deleteRule(rule) {
       const ruleIndex = this.rules.indexOf(rule);
       this.rules.splice(ruleIndex,1)
+    },
+
+    toggleRuleLock(rule) {      
+      const ruleIndex = this.rules.indexOf(rule);
+      const ruleValue = this.rules[ruleIndex].locked;
+      this.rules[ruleIndex].locked = !ruleValue
     }
   },
 
   computed:{
-    //para saber si la tabla tiene elementos, encaso contrario no se renderiza
+    //para saber si la tabla tiene elementos, en caso contrario no se renderiza
     filledTables(){
       return this.tables.filter(table => this.table_rules(table).length)
     }
