@@ -25,6 +25,17 @@
             :items="table_rules"   
             sort-by="id"
             >    
+
+                <template v-slot:item.is_active="{ item }">                    
+                    <v-icon            
+                    small
+                    :class="['mdi', item.is_active? 'mdi-checkbox-marked':'mdi-checkbox-blank-outline']"                    
+                    :color="item.is_active? 'success':'gray'"
+                    @click="toggleRuleKey(item, 'is_active')"
+                    >                    
+                    </v-icon>                   
+                </template>
+
                 <template v-slot:item.action="{ item }">
                   <v-icon
                     small
@@ -44,12 +55,11 @@
                 </template>
 
                 <template v-slot:item.locked="{ item }">
-                    <v-icon
-                    
+                    <v-icon                    
                     small
                     :class="['mdi', item.locked? 'mdi-lock':'mdi-lock-open-variant']"                    
                     :color="item.locked? 'error':'success'"
-                    @click="toggleRuleLock(item)"
+                    @click="toggleRuleKey(item,'locked')"
                     >                    
                     </v-icon>
                 </template>
@@ -97,9 +107,10 @@ export default {
             confirm('Are you sure you want to delete this rule?') && this.$emit('delete', rule)
         },
 
-        toggleRuleLock(rule){
-            this.$emit('toggle-rule-lock', rule)
+        toggleRuleKey(rule, key){
+            this.$emit('toggle-rule-key', rule, key)
         }
+       
     }
 }
 </script>

@@ -12,7 +12,7 @@
             :table_name="table"
             :table_rules="table_rules(table)"
             @delete="deleteRule"
-            @toggle-rule-lock="toggleRuleLock"    
+            @toggle-rule-key="toggleRuleLock"              
             ></secure_table>
 
       </v-col>
@@ -52,10 +52,11 @@ export default {
       this.rules.splice(ruleIndex,1)
     },
 
-    toggleRuleLock(rule) {      
+    //para togglear los estados lock y active
+    toggleRuleLock(rule, rule_key) {           
       const ruleIndex = this.rules.indexOf(rule);
-      const ruleValue = this.rules[ruleIndex].locked;
-      this.rules[ruleIndex].locked = !ruleValue
+      const ruleValue = this.rules[ruleIndex][rule_key];
+      this.rules[ruleIndex][rule_key] = !ruleValue;      
     }
   },
 
