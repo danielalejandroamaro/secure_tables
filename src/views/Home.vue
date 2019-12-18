@@ -10,8 +10,7 @@
             v-for="(table,index) in filledTables"
             :key="index"            
             :table_name="table"
-            :table_rules="table_rules(table)"
-            @delete="deleteRule"
+            :table_rules="table_rules(table)"          
             @toggle-rule-key="toggleRuleLock"              
             ></secure_table>
 
@@ -45,12 +44,7 @@ export default {
 
     table_rules(table_name) {
       return this.rules.filter(table => table.table_name == table_name)
-    },
-
-    deleteRule(rule) {
-      const ruleIndex = this.rules.indexOf(rule);
-      this.rules.splice(ruleIndex,1)
-    },
+    },   
 
     //para togglear los estados lock y active
     toggleRuleLock(rule, rule_key) {           

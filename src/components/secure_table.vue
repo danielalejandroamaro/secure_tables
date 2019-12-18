@@ -38,28 +38,20 @@
 
                 <template v-slot:item.action="{ item }">
                   <v-icon
-                    small
-                    class="mr-2"
+                    small                    
                     @click="editRule(item)"
                     color="success"
                   >
                     mdi-pencil
                   </v-icon>
-                  <v-icon
-                    small
-                    @click="deleteRule(item)"
-                    color="error"
-                  >
-                    mdi-delete
-                  </v-icon>
+                  
                 </template>
 
                 <template v-slot:item.locked="{ item }">
                     <v-icon                    
                     small
                     :class="['mdi', item.locked? 'mdi-lock':'mdi-lock-open-variant']"                    
-                    :color="item.locked? 'error':'success'"
-                    @click="toggleRuleKey(item,'locked')"
+                    :color="item.locked? 'error':'success'"                    
                     >                    
                     </v-icon>
                 </template>
@@ -101,11 +93,7 @@ export default {
 
         editRule(rule) {
             console.log(rule);
-        },
-
-        deleteRule(rule) {
-            confirm('Are you sure you want to delete this rule?') && this.$emit('delete', rule)
-        },
+        },        
 
         toggleRuleKey(rule, key){
             this.$emit('toggle-rule-key', rule, key)
