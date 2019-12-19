@@ -24,12 +24,12 @@ Vue.use({
                     { 'id': 4, 'table_name': 'table1', 'method': 'DELETE', 'groups': 'admin', 'is_active': true, 'locked': false },
                     { 'id': 5, 'table_name': 'table1', 'method': 'GET', 'groups': 'agent', 'is_active': true, 'locked': false },
                     { 'id': 6, 'table_name': 'table2', 'method': 'GET', 'groups': 'Not Available', 'is_active': true, 'locked': false },
-                    { 'id': 7, 'table_name': 'table2', 'method': 'GET', 'groups': 'agent', 'is_active': false, 'locked': true },
-                    { 'id': 8, 'table_name': 'table2', 'method': 'GET', 'groups': 'admin', 'is_active': true, 'locked': true },
+                    { 'id': 7, 'table_name': 'table2', 'method': 'DELETE', 'groups': 'agent', 'is_active': false, 'locked': true },
+                    { 'id': 8, 'table_name': 'table2', 'method': 'PUT', 'groups': 'admin', 'is_active': true, 'locked': true },
                     { 'id': 9, 'table_name': 'table3', 'method': 'GET', 'groups': 'agent', 'is_active': false, 'locked': false },
-                    { 'id': 10, 'table_name': 'table3', 'method': 'GET', 'groups': 'admin', 'is_active': false, 'locked': true },
-                    { 'id': 11, 'table_name': 'table3', 'method': 'GET', 'groups': 'admin', 'is_active': true, 'locked': false },
-                    { 'id': 12, 'table_name': 'table3', 'method': 'GET', 'groups': 'Not Available', 'is_active': true, 'locked': false }
+                    { 'id': 10, 'table_name': 'table3', 'method': 'POST', 'groups': 'admin', 'is_active': false, 'locked': true },
+                    { 'id': 11, 'table_name': 'table3', 'method': 'POST', 'groups': 'agent', 'is_active': true, 'locked': false },
+                    { 'id': 12, 'table_name': 'table3', 'method': 'DELETE', 'groups': 'Not Available', 'is_active': true, 'locked': false }
                 ]
             }
         }

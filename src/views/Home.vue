@@ -10,8 +10,12 @@
             v-for="(table,index) in filledTables"
             :key="index"            
             :table_name="table"
-            :table_rules="table_rules(table)"          
-            @toggle-rule-key="toggleRuleLock"              
+            :table_rules="table_rules(table)"
+            :global_last_id="global_last_id"
+            :groups_list="groups_list"  
+            @toggle-rule-key="toggleRuleLock"
+            @edit-rule="editRule"
+            @add-rule="addRule" 
             ></secure_table>
 
       </v-col>
@@ -51,18 +55,42 @@ export default {
       const ruleIndex = this.rules.indexOf(rule);
       const ruleValue = this.rules[ruleIndex][rule_key];
       this.rules[ruleIndex][rule_key] = !ruleValue;      
+    },
+
+    editRule(editedIndex,editedRule){
+      Object.assign(this.rules[editedIndex], editedRule)
+    },
+
+    addRule(newRule){
+      this.rules.push(newRule)
     }
+
   },
 
   computed:{
     //para saber si la tabla tiene elementos, en caso contrario no se renderiza
     filledTables(){
       return this.tables.filter(table => this.table_rules(table).length)
+    },
+
+    global_last_id(){
+      return this.rules[this.rules.length-1].id
+    },
+
+    //para computar los roles existentes en las tablas y adicinarlos al select del adicionar
+    groups_list(){
+      let groups = [];
+      this.rules.forEach( function(el){ 
+        if(groups.indexOf(el.groups) == -1){
+          groups.push(el.groups);
+        } 
+      });      
+      return groups
     }
   },
 
   created(){
-    this.initialize()
+    this.initialize();    
   }
 
 }
