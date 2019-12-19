@@ -58,11 +58,11 @@ export default {
     },
 
     editRule(editedIndex,editedRule){
-      Object.assign(this.rules[editedIndex], editedRule)
+      Object.assign(this.rules[editedIndex], editedRule)      
     },
 
     addRule(newRule){
-      this.rules.push(newRule)
+      this.rules.push(newRule)      
     }
 
   },
@@ -74,14 +74,14 @@ export default {
     },
 
     global_last_id(){
-      return this.rules[this.rules.length-1].id
+      return Number(this.rules[this.rules.length-1].id)
     },
 
     //para computar los roles existentes en las tablas y adicinarlos al select del adicionar
     groups_list(){
       let groups = [];
       this.rules.forEach( function(el){ 
-        if(groups.indexOf(el.groups) == -1){
+        if(groups.indexOf(el.groups) == -1 && el.groups){
           groups.push(el.groups);
         } 
       });      
