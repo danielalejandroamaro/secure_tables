@@ -27,7 +27,7 @@ Vue.use({
                     { 'id': 7, 'table_name': 'table2', 'method': 'DELETE', 'groups': 'agent', 'is_active': false, 'locked': true },
                     { 'id': 8, 'table_name': 'table2', 'method': 'PUT', 'groups': 'admin', 'is_active': true, 'locked': true },
                     { 'id': 9, 'table_name': 'table3', 'method': 'GET', 'groups': 'agent', 'is_active': false, 'locked': false },
-                    { 'id': 10, 'table_name': 'table3', 'method': 'POST', 'groups': 'admin', 'is_active': false, 'locked': true },
+                    { 'id': 10, 'table_name': 'table3', 'method': 'POST', 'groups': 'superadmin', 'is_active': false, 'locked': true },
                     { 'id': 11, 'table_name': 'table3', 'method': 'POST', 'groups': 'agent', 'is_active': true, 'locked': false },
                     { 'id': 12, 'table_name': 'table3', 'method': 'DELETE', 'groups': '', 'is_active': true, 'locked': false }
                 ]

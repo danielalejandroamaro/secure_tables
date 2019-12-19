@@ -34,12 +34,9 @@
                 </v-card-title>                
               </v-app-bar>              
 
-              <v-card-text>
+            <v-card-text class="pb-0">
                 <v-container>
-                  <v-row>
-                    <v-col cols="3" sm="2">
-                      <v-text-field disabled :value="editedRule.id" label="Id"></v-text-field>
-                    </v-col>
+                  <v-row>                    
                     <v-col cols="12" sm="10">
                       <v-text-field disabled :value="editedRule.table_name" label="Table Name"></v-text-field>
                     </v-col>
@@ -62,24 +59,17 @@
                            v-model="editedRule.groups"
                        ></v-select>
                     </v-col>       
-                    <v-col cols  class="d-flex">
-                        <v-checkbox 
-                        label="Active" 
-                        v-model="editedRule.is_active" 
+                    <v-col>                          
+                        <v-switch label="Active"
+                        dnese
+                        v-model="editedRule.is_active"
                         :value="editedRule.is_active"
                         :color="editedRule.is_active ? 'success' : 'gray'"
-                        ></v-checkbox>
-                        <v-checkbox 
-                        class="ml-5"
-                        label="Locked" 
-                        v-model="editedRule.locked" 
-                        :value="editedRule.locked"
-                        :color="editedRule.locked ? 'success' : 'gray'"
-                        ></v-checkbox>                     
+                        ></v-switch>                                  
                     </v-col>                       
                   </v-row>
                 </v-container>
-              </v-card-text>
+            </v-card-text>
 
               <v-card-actions>
                 <v-spacer></v-spacer>
@@ -96,6 +86,7 @@
         <!--table elements here-->
         <v-card-text v-show='show'>
             <v-data-table
+            dense
             :headers="table_headers"
             :items="table_rules"   
             sort-by="id"
@@ -107,13 +98,13 @@
                 </template>
 
                 <template v-slot:item.is_active="{ item }">                    
-                    <v-icon            
-                    small
-                    :class="['mdi', item.is_active? 'mdi-checkbox-marked':'mdi-checkbox-blank-outline']"                    
-                    :color="item.is_active? 'success':'gray'"
-                    @click="toggleRuleKey(item, 'is_active')"
-                    >                    
-                    </v-icon>                   
+                    <v-switch 
+                    label="Active"
+                    :value="item.is_active"                    
+                    dense                                
+                    :color="item.is_active? 'success':''"
+                    v-model="item.is_active"           
+                    ></v-switch>
                 </template>
 
                 <template v-slot:item.action="{ item }">
@@ -182,7 +173,7 @@ export default {
                 method:'',
                 groups:'',
                 is_active:'',
-                locked:''
+                locked:true
             }          
 
         }
