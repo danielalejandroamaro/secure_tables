@@ -1,7 +1,0 @@
-[
-    { "id": 1, "name": "pear", "quantity": 27 },
-    { "id": 2, "name": "apple", "quantity": 12 },
-    { "id": 4, "name": "banana", "quantity": 32 },
-    { "id": 5, "name": "watermelon", "quantity": 20 },
-    { "id": 6, "name": "mango", "quantity": 15 }
-]

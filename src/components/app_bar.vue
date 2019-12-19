@@ -17,7 +17,7 @@
 
       <v-spacer></v-spacer>
 
-      <h3>Yoe Test</h3>
+      <h3>Secure Tables</h3>
     </v-app-bar>
 </template>
 
