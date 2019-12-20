@@ -5,7 +5,6 @@
         cols="10"
         md="8"
         >
-
             <secure_table
             v-for="(table,index) in filledTables"
             :key="index"            

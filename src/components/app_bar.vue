@@ -1,7 +1,7 @@
 <template>
     <v-app-bar
       app
-      color="deep-purple darken-4"
+      color="blue darken-2"
       dark
     >
       <div class="d-flex align-center">
