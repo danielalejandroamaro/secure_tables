@@ -57,12 +57,13 @@ export default {
       this.rules[ruleIndex][rule_key] = !ruleValue;      
     },
 
-    editRule(editedIndex,editedRule){
-      Object.assign(this.rules[editedIndex], editedRule)      
+    editRule(editedRule){ 
+      const editedIndex = this.rules.findIndex(rule => rule.id == editedRule.id);      
+      Object.assign(this.rules[editedIndex], editedRule) 
     },
 
     addRule(newRule){
-      this.rules.push(newRule)      
+      this.rules.push(newRule)  
     }
 
   },

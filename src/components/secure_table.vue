@@ -15,10 +15,10 @@
             
             <!--Aqui comienza el dialogo-->
 
-            <v-dialog v-model="dialog" max-width="500px">
+            <v-dialog v-model="dialog" max-width="400px">
                 
             <template v-slot:activator="{ on }">
-              <v-btn icon v-on="on">
+              <v-btn icon v-on="on" @click="show=!show">
                 <v-icon>mdi-plus</v-icon>
             </v-btn>
             </template>
@@ -37,10 +37,10 @@
             <v-card-text class="pb-0">
                 <v-container>
                   <v-row>                    
-                    <v-col cols="12" sm="10">
+                    <v-col cols="12">
                       <v-text-field disabled :value="editedRule.table_name" label="Table Name"></v-text-field>
                     </v-col>
-                    <v-col cols="6" sm="4">
+                    <v-col cols="12" sm="4">
                         <v-select
                             label="Methods"
                             cache-items                           
@@ -49,7 +49,7 @@
                             v-model="editedRule.method"
                          ></v-select>
                     </v-col>
-                    <v-col cols="6" sm="8">
+                    <v-col cols="12" sm="8">
                         <v-select
                            label="Groups"
                            cache-items                           
@@ -103,7 +103,7 @@
                     :value="item.is_active"                    
                     dense                                
                     :color="item.is_active? 'success':''"
-                    v-model="item.is_active"           
+                    v-model="item.is_active"   
                     ></v-switch>
                 </template>
 
@@ -160,7 +160,7 @@ export default {
             show:false,
             editedIndex:-1,
             editedRule:{
-                id:'',
+                id:Date.now(),
                 table_name:'',
                 method:'',
                 groups:'',
@@ -168,7 +168,7 @@ export default {
                 locked:''
             },
             defaultRule:{
-                id: this.global_last_id +1,
+                id: Date.now(),
                 table_name:this.table_name,
                 method:'',
                 groups:'',
@@ -181,10 +181,6 @@ export default {
 
     methods: {
         
-        addRule() {
-            alert('Add Rule works')
-        },
-
         editRule(rule) {
             this.editedIndex = this.table_rules.indexOf(rule) //Se busca el indice de la row editada para poderlo agregar ahi mismo luego
             this.editedRule = Object.assign({}, rule) //Se ponen los datos de la fruta a editar
@@ -199,25 +195,49 @@ export default {
             }, 300)
         },
         
-        save () {
-        if (this.editedIndex > -1) { //si es mayor se esta editando una row          
-            this.$emit('edit-rule', this.editedIndex, this.editedRule)          
-        } else { //es -1, o sea no se esta editando
-            this.defaultRule.id=this.global_last_id + 1
-            this.$emit('add-rule', this.editedRule);         
-        }        
-        this.close()
-      },
+        save () {            
+            if (this.editedIndex > -1 /*si es mayor se esta editando una row*/){
+                this.$emit('edit-rule', this.editedRule);
+                this.close()              
+            } else /*es -1, o sea no se esta editando, se agrega*/ if(!this.ruleExist(this.editedRule)){//valida que no exista una row igual
+                for(let rule of this.table_rules){
+                    if( rule.method == this.editedRule.method && this.editedRule.groups && !rule.groups ){ //verifica si se esta agregando un method ya existente con group y lo actualiza 
+                    let groups = this.editedRule.groups;
+                    this.editedRule = rule;
+                    this.editedRule.groups = groups;
+                    this.editRule(this.editedRule);
+                    this.close();
+                    return;
+                    }else if(rule.method == this.editedRule.method && !this.editedRule.groups){ //verifica que no se ponga un method existente asociado ya a un grupo en vacio
+                    this.close();
+                    alert("There are groups associated to this method, row wasn't saved")                    
+                    return;
+                    }
+                }
+                this.$emit('add-rule', this.editedRule);
+                this.defaultRule.id=Date.now();
+                this.close()
+            } else alert("Operation fail!... resulting row exist, please try another config")            
+        },
 
         toggleRuleKey(rule, key){
             this.$emit('toggle-rule-key', rule, key)
+        },
+
+        //para comprobar si ya existe una row con un metodo y group determinado, retorna el indice de la row si es true, o false caso contrario
+        ruleExist(editedRule){            
+            for(let rule of this.table_rules){
+                if(rule.method == editedRule.method && rule.groups == editedRule.groups)                    
+                    return true
+            }
+            return false
         }
        
     },
 
     computed:{
         formTitle () {
-            return this.editedIndex === -1 ? `New Row on "${this.table_name}"` : `Edit Row "${this.table_rules[this.editedIndex].method} ${this.table_rules[this.editedIndex].groups}"`
+            return this.editedIndex === -1 ? `New Row` : `Edit Row "${this.table_rules[this.editedIndex].method} ${this.table_rules[this.editedIndex].groups}"`
         }        
     },
 
