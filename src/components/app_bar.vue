@@ -1,7 +1,7 @@
 <template>
     <v-app-bar
       app
-      color="deep-purple darken-4"
+      color="blue darken-2"
       dark
     >
       <div class="d-flex align-center">
@@ -9,7 +9,7 @@
           alt="Vuetify Logo"
           class="shrink mr-2"
           contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
+          src="@/assets/logo.svg"
           transition="scale-transition"
           width="40"
         />        
@@ -17,7 +17,7 @@
 
       <v-spacer></v-spacer>
 
-      <h3>Yoe Test</h3>
+      <h3>Secure Tables</h3>
     </v-app-bar>
 </template>
 
