@@ -9,10 +9,12 @@ class Rulers(models.Model):
     _order = 'sequence'
 
     """
-    aqui estara la estructura que se mostrara al usuario en foma de textocom:
+    En el campo name estará la estructura que se mostrará al usuario 
+    en forma de texto com:
     Del modelo: "X", el campo: "Y", es igual a el valor: "Z"
     
-    TODO: hay que implemetar una opcion para permitir comparar dos campos de modelos ejemplo:
+    TODO: hay que implementar una opción para permitir 
+    comparar dos campos de modelos ejemplo:
 
     """
     name = fields.Char(
@@ -26,7 +28,7 @@ class Rulers(models.Model):
 
     rulers_generator_id = fields.Many2one(
         comodel_name='rulers_generator',
-        string=' rulers_generator_id',
+        string='Rulers_Generator_id',
         required=True,
         ondelete='cascade'
     )
@@ -36,3 +38,26 @@ class Rulers(models.Model):
         default=0,
         required=False
     )
+
+    rule_model = fields.Many2one(
+        comodel_name='ir.model',
+        string='Rule_model',
+        required=False)
+
+    rule_field = fields.Many2one(
+        comodel_name='ir.model.fields',
+        string='Rule_field',
+        required=False)
+
+    rule_operator = fields.Many2one(
+        comodel_name='operators',
+        string='operator_fields',
+        required=False)
+
+    # @api.multi
+    # def create_rule(self):
+    #     pass
+    #
+    # @api.multi
+    # def edit_rule(self):
+    #     pass

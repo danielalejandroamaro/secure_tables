@@ -26,7 +26,16 @@ class RulersGenerator(models.Model):
 
     @api.multi
     def add_rule(self):
-        pass
+
+        return {
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'rulers',
+            'type': 'ir.actions.act_window',
+            'target': 'new',
+            'context': {'default_rulers_generator_id': self.id},
+            'nodestroy': True,
+        }
 
     @api.multi
     def add_operator(self):

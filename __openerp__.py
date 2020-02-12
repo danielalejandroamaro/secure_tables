@@ -28,6 +28,7 @@
         'views/views.xml',
         'views/templates.xml',
         'views/rulers_generator.xml',
+        'views/rulers.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
