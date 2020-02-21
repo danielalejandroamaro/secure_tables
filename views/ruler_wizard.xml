@@ -1,0 +1,80 @@
+<openerp>
+    <data>
+        <record id="ruler_wizard_view_form" model="ir.ui.view">
+            <field name="name">ruler.wizard.view.form</field>
+            <field name="model">ruler.wizard</field>
+            <field name="arch" type="xml">
+
+                <form string="Regla">
+                    <group string="Modelos">
+                        <field name="ruler_model"
+                               string="Modelo"
+                               widget="selection"
+                        />
+                    </group>
+
+                    <group string="Comparaciones">
+                        <field name="ruler_field"
+                               string="Campo"
+                               widget="selection"
+                               domain="[('model_id', '=', ruler_model)]"
+                        />
+                        <field name="logical_operator"
+                               string="Operador Lógico"
+                               widget="selection"
+                        />
+
+                        <field name="fields_type"/>
+                        <field name="name"/>
+                        <field name="ruler_type"/>
+
+                        <field name="date_value"
+                               string="Fecha"
+                               attrs="{'invisible': [('fields_type', '!=', 'date')]}"
+                        />
+                        <field name="date_time_value"
+                               string="Fecha y Hora"
+                               attrs="{'invisible': [('fields_type', '!=', 'datetime')]}"
+                        />
+                        <field name="integer_value"
+                               string="Entero"
+                               attrs="{'invisible': [('fields_type', '!=', 'integer')]}"
+                        />
+                        <field name="bool_value"
+                               string="Decisión"
+                               attrs="{'invisible': [('fields_type', '!=', 'boolean')]}"
+                        />
+                        <field name="char_value"
+                               string="Texto"
+                               attrs="{'invisible': [('fields_type', '!=', 'char')]}"
+                        />
+                        <field name="float_value"
+                               string="Float"
+                               attrs="{'invisible': [('fields_type', 'not in', ['float', 'monetary'])]}"
+                        />
+                        <field name="many2many_value"
+                               string="Relacional"
+                               options="{'no_create': True}"
+                               widget="many2many_tags"
+                               attrs="{'invisible': [('fields_type', 'not in', ['many2many', 'many2one','selection'])]}"
+                        />
+
+                    </group>
+                    <footer>
+                        <button name="create_ruler"
+                                string="Crear"
+                                type="object"
+                                icon="gtk-apply"
+                        />
+                        <button special="cancel"
+                                string="Cerrar"
+                                type="object"
+                                icon="gtk-cancel"
+                        />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</openerp>

@@ -2,8 +2,8 @@
     <data>
 
         <record id="rulers_generator_form_view" model="ir.ui.view">
-            <field name="name">rulers_generator.form.view</field>
-            <field name="model">rulers_generator</field>
+            <field name="name">rulers.generator.form.view</field>
+            <field name="model">rulers.generator</field>
             <field name="arch" type="xml">
                 <form>
                     <header>
@@ -21,19 +21,35 @@
                             </group>
 
                             <group>
-                                <button name="add_rule" string="Agregar Regla" class="oe_highlight" type="object"/>
-                                <button name="add_operator" string="Agregar Operador" class="oe_highlight"
-                                        type="object"/>
+                                <button name="add_ruler"
+                                        string="Agregar Regla"
+                                        class="oe_highlight"
+                                        type="object"
+                                />
+
+                                <button name="add_operator"
+                                        string="Agregar Operador"
+                                        class="oe_highlight"
+                                        type="object"
+                                />
                             </group>
 
                             <group string="Reglas">
-                                <field name="rulers" options='{"no_open": True, "no_create": True}'
-                                       nolabel="1">
+                                <field name="rulers"
+                                       options='{"no_open": True, "no_create": True}'
+                                       nolabel="1"
+                                >
                                     <tree editable="1" create="0" delete="1">
                                         <field name="sequence" widget="handle"/>
                                         <field name="name" readonly="1"/>
-                                        <button name="edit" string="Editar" class="oe_link" type="object"
-                                                options='{"no_open": True, "no_create": True}'/>
+                                        <field name="description" readonly="1"/>
+
+                                        <button name="edit"
+                                                string="Editar"
+                                                class="oe_link"
+                                                type="object"
+                                                options='{"no_open": True, "no_create": True}'
+                                        />
 
                                     </tree>
                                 </field>
@@ -47,13 +63,13 @@
 
         <record id="rulers_generator_action_window" model="ir.actions.act_window">
             <field name="name">Generador de Reglas</field>
-            <field name="res_model">rulers_generator</field>
-            <field name="view_mode">form</field>
+            <field name="res_model">rulers.generator</field>
+            <field name="view_mode">tree,form</field>
         </record>
 
         <menuitem name="Auditoría" id="audit_v2.audit_menu_root" sequence="1000"/>
 
-        <menuitem name="Generador de Reglas" id="generator_menu" parent="audit_v2.audit_menu_root"
+        <menuitem name="Generador de Reglas" id="rulers_generator_menu" parent="audit_v2.audit_menu_root"
                   action="audit_v2.rulers_generator_action_window" sequence="0"/>
 
     </data>
