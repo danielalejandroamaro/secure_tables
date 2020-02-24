@@ -33,7 +33,7 @@ class RulersGenerator(models.Model):
             'type': 'ir.actions.act_window',
             'target': 'new',
             'context': {'default_ruler_generator_id': self.id,
-                        'default_type': 'ruler',
+                        'default_ruler_type': 'ruler',
                         },
             'nodestroy': True,
         }

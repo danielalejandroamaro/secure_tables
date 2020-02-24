@@ -19,14 +19,18 @@
                                widget="selection"
                                domain="[('model_id', '=', ruler_model)]"
                         />
+
+                        <field name="fields_type"/>
+
                         <field name="logical_operator"
                                string="Operador Lógico"
                                widget="selection"
                         />
 
-                        <field name="fields_type"/>
                         <field name="name"/>
-                        <field name="ruler_type"/>
+                        <field name="ruler_type"
+                               invisible="True"
+                        />
 
                         <field name="date_value"
                                string="Fecha"
