@@ -12,53 +12,46 @@ class RulerWizard(models.TransientModel):
         if self.ruler_field:
             self.fields_type = self.ruler_field.ttype
 
+    def __set_transient_selection_env(self, name, key_id):
+        return self.env[
+            'transient.selection'
+            ].create(
+                {
+                    'name': name,
+                    'key_id': key_id,
+                }
+            )
+
+    def create_select(self, ruler_model , ruler_field):
+        selection_values = self.env[ruler_model]._fields[ruler_field].selection
+        transient_ids = [
+            self.__set_transient_selection_env(name,key_id) for key_id,name value in selection_values:
+        ]
+        return {'domain': {'many2many_value': [('id', 'in', transient_ids)]}}
+
+    def create_relation(self,ruler_model):
+        records = self.env[ruler_model].search([])
+        transient_ids = [
+            self.__set_transient_selection_env(record.name , record.id)
+            for record in records:
+        ]
+        return {'domain': {'many2many_value': [('id', 'in', transient_ids)]}}
+
     @api.onchange('ruler_field')
     def onchange_method(self):
-
-
         if self.fields_type:
             self.fields_type = self.ruler_field.ttype
+            
+            if self.fields_type not in ['selection','many2many', 'many2one']:
+                return {'domain': {'many2many_value': [('id', 'in', [])]}}
 
-            if self.fields_type in ['selection', 'many2many', 'many2one']:
+            self.many2many_value = False
+            if self.fields_type == 'selection':
+                return self.create_using_select( self.ruler_model.model, self.ruler_field.name)
 
-                self.many2many_value = False
+            if self.fields_type in ['many2many', 'many2one']:
+               return self.create_relation(self.ruler_field.relation)
 
-                transient_ids = []
-
-                if self.fields_type == 'selection':
-                    ruler_model = self.ruler_model.model
-                    ruler_field = self.ruler_field.name
-
-                    selection_values = self.env[ruler_model]._fields[ruler_field].selection
-
-                    for value in selection_values:
-                        key_id = value[0]
-                        name = value[1]
-
-                        transient = self.env['transient.selection'].create(
-                            {
-                                'name': name,
-                                'key_id': key_id,
-                            }
-                        )
-
-                        transient_ids.append(transient.id)
-                else: # 'many2many', 'many2one'
-
-                    ruler_model = self.ruler_field.relation  # esto es el modelo
-                    records = self.env[ruler_model].search([])
-
-                    for record in records:
-                        transient = self.env['transient.selection'].create(
-                            {
-                                'name': record.name,
-                                'model_id': record.id,
-                            }
-                        )
-
-                        transient_ids.append(transient.id)
-
-                return {'domain': {'many2many_value': [('id', 'in', transient_ids)]}}
 
     @api.multi
     def create_ruler(self):
